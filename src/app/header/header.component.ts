@@ -1,22 +1,24 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { user } from '../userLocation/types/user.type';
+import { Component, computed, inject } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatMenuModule } from '@angular/material/menu'
+import { Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { AccountService } from '../_services/AccountService.service'
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, RouterLinkActive], templateUrl: './header.component.html',
+  imports: [MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, RouterLink, RouterLinkActive],
+  templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  // private accountService = inject(AccountService)
+  private accountService = inject(AccountService)
   private router = inject(Router)
-  _user = signal<user | undefined>(undefined)  //Or
-  // _user = computed(() => this.accoutService.data()?.user)
+  user = computed(() => this.accountService.data()?.user)
 
   logOut() {
-
+    this.accountService.logout()
+    this.router.navigate(['/'])
   }
 }
