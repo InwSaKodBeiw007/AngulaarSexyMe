@@ -1,10 +1,11 @@
-import { Component, computed, inject } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatMenuModule } from '@angular/material/menu'
 import { Router, RouterLink, RouterLinkActive } from '@angular/router'
-import { AccountService } from '../_services/AccountService.service'
+import { AccountService } from '../_services/account.service'
+import { User } from '../_models/user'
 
 @Component({
   selector: 'app-header',

@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { PasswordValidator } from '../_validators/password.validator'
+import { PasswordMatchValidator } from '../_validators/password.match.validator'
 import { CommonModule } from '@angular/common'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -8,10 +10,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatRadioModule } from '@angular/material/radio'
 import { provideNativeDateAdapter } from '@angular/material/core'
 import { MatCardModule } from '@angular/material/card'
+import { AccountService } from '../_services/account.service'
 import { Router } from '@angular/router'
-import { AccountService } from '../_services/AccountService.service'
-import { PasswordMatchValidator } from '../_validator/password.match.validator'
-import { PasswordValidator } from '../_validator/password.validator'
 
 @Component({
   selector: 'app-login',
