@@ -24,6 +24,7 @@ export class AccountService {
     localStorage.removeItem(this._key)
     this.data.set(null)
   }
+  // #region login_and_register
 
   async login(loginData: { username: string, password: string }): Promise<string> {
     try {
@@ -53,6 +54,9 @@ export class AccountService {
     }
   }
 
+  // #endregion
+
+  //#region saveDataToLocalStorage_loadDataFromLocalStorage
   private saveDataToLocalStorage() {
     const jsonString = JSON.stringify(this.data())
     localStorage.setItem(this._key, jsonString)
@@ -65,4 +69,26 @@ export class AccountService {
       this.data.set(data)
     }
   }
+  //#endregion
+
+  //#region UpdateProfileFn
+  async updateProfile(user: User): Promise<boolean> {
+    const url = environment.baseUrl + 'api/user/'
+    try {
+      // const response = this._http.post<{ user: User, token: string }>(url, user)
+      const response = this._http.patch(url, user)
+      await firstValueFrom(response)
+      const currentData = this.data()
+      if (currentData) {
+        currentData.user = user
+        this.data.set(currentData)
+        this.saveDataToLocalStorage()
+      }
+    } catch (error) {
+      return false
+    }
+    return true
+  }
+
+  //#endregion
 }
